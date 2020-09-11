@@ -33,8 +33,6 @@ export class OrdersControlComponent implements OnInit {
       } else {
         this.pedidos = this.pedidos;
       }
-
-      console.log("entoru bateru", this.pedidos);
     });
   }
 }

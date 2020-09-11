@@ -18,12 +18,10 @@ export class UsersQueryComponent implements OnInit {
   getClients() {
     this.usersService.getClients().subscribe((res) => {
       this.users = res.data.content;
-      console.log("dados ==>", this.users);
     });
   }
 
   viewUser(id) {
-    console.log("ver dados do", id);
     this.router.navigate(["users-data"], { queryParams: { id: id } });
   }
 }
