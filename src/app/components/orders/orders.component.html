@@ -1,0 +1,463 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <fieldset class="border p-3 my-3">
+        <legend class="legendFormulario font-weight-bold">
+          Faça seu pedido
+        </legend>
+
+        <form
+          class="col s6"
+          [formGroup]="ordersForm"
+          novalidate
+          (ngSubmit)="onSubmit(ordersForm)"
+        >
+          <div class="row" style="margin-bottom: 15px">
+            <div>
+              <label class="font-weight-bold">Qual tamanho da pizza?</label>
+              <br />
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="customRadioInline1"
+                  name="size"
+                  formControlName="size"
+                  class="custom-control-input"
+                  value="0"
+                />
+                <label class="custom-control-label" for="customRadioInline1"
+                  >P
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="customRadioInline2"
+                  name="size"
+                  formControlName="size"
+                  class="custom-control-input"
+                  value="1"
+                />
+                <label class="custom-control-label" for="customRadioInline2"
+                  >M</label
+                >
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="customRadioInline3"
+                  name="size"
+                  formControlName="size"
+                  class="custom-control-input"
+                  value="2"
+                />
+                <label class="custom-control-label" for="customRadioInline3"
+                  >G</label
+                >
+              </div>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="
+                ordersForm.submitted && ordersForm.controls.size.value === ''
+              "
+              style="margin-top: 4rem; margin-left: -9.3rem"
+            >
+              Campo obrigatório
+            </span>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px">
+            <div>
+              <label class="font-weight-bold">Qual o tipo da pizza?</label>
+              <br />
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="whole"
+                  name="halfNHalf"
+                  class="custom-control-input"
+                  value="0"
+                  formControlName="halfNHalf"
+                  (change)="cleanMainFlavor()"
+                />
+                <label class="custom-control-label" for="whole"
+                  >Pizza Inteira
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="halfNHalf"
+                  name="halfNHalf"
+                  class="custom-control-input"
+                  value="1"
+                  formControlName="halfNHalf"
+                  (change)="cleanMainFlavor()"
+                />
+                <label class="custom-control-label" for="halfNHalf"
+                  >Meio a meio</label
+                >
+              </div>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="
+                ordersForm.submitted &&
+                ordersForm.controls.halfNHalf.value === ''
+              "
+              style="margin-top: 4rem; margin-left: -15.8rem"
+            >
+              Campo obrigatório
+            </span>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px">
+            <div>
+              <label class="font-weight-bold">Qual a espessura da pizza?</label>
+              <br />
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="thin"
+                  name="crust"
+                  class="custom-control-input"
+                  value="0"
+                  formControlName="crust"
+                />
+                <label class="custom-control-label" for="thin"
+                  >Massa Fina
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="thick"
+                  name="crust"
+                  class="custom-control-input"
+                  value="1"
+                  formControlName="crust"
+                />
+                <label class="custom-control-label" for="thick"
+                  >Massa Grossa</label
+                >
+              </div>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="
+                ordersForm.submitted && ordersForm.controls.crust.value === ''
+              "
+              style="margin-top: 4rem; margin-left: -15rem"
+            >
+              Campo obrigatório
+            </span>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px">
+            <div>
+              <label class="font-weight-bold"> Molho extra? </label> <br />
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="yes"
+                  name="extraSauce"
+                  class="custom-control-input"
+                  value="0"
+                  formControlName="extraSauce"
+                />
+                <label class="custom-control-label" for="yes">Sim </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="not"
+                  name="extraSauce"
+                  class="custom-control-input"
+                  value="1"
+                  formControlName="extraSauce"
+                />
+                <label class="custom-control-label" for="not">Não</label>
+              </div>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="
+                ordersForm.submitted &&
+                ordersForm.controls.extraSauce.value === ''
+              "
+              style="margin-top: 4rem; margin-left: -8.438rem"
+            >
+              Campo obrigatório
+            </span>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px">
+            <div>
+              <label class="font-weight-bold">Informe o sabor da pizza</label>
+              <br />
+              <div *ngIf="ordersForm.controls.halfNHalf.value === '0'">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="MARGUERITA"
+                    name="mainFlavor"
+                    class="custom-control-input"
+                    value="0"
+                    formControlName="mainFlavor"
+                  />
+                  <label class="custom-control-label" for="MARGUERITA"
+                    >Marguerita
+                  </label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="CALABRESA"
+                    name="mainFlavor"
+                    class="custom-control-input"
+                    value="1"
+                    formControlName="mainFlavor"
+                  />
+                  <label class="custom-control-label" for="CALABRESA"
+                    >Calabresa</label
+                  >
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="PEPPERONI"
+                    name="mainFlavor"
+                    class="custom-control-input"
+                    value="2"
+                    formControlName="mainFlavor"
+                  />
+                  <label class="custom-control-label" for="PEPPERONI"
+                    >Pepperoni</label
+                  >
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="frangoCatupiry"
+                    name="mainFlavor"
+                    class="custom-control-input"
+                    value="3"
+                    formControlName="mainFlavor"
+                  />
+                  <label class="custom-control-label" for="frangoCatupiry"
+                    >Frango com Catupiry</label
+                  >
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="PORTUGUESA"
+                    name="mainFlavor"
+                    class="custom-control-input"
+                    value="4"
+                    formControlName="mainFlavor"
+                  />
+                  <label class="custom-control-label" for="PORTUGUESA"
+                    >Portuguesa</label
+                  >
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="quatroQueijos"
+                    name="mainFlavor"
+                    class="custom-control-input"
+                    value="5"
+                    formControlName="mainFlavor"
+                  />
+                  <label class="custom-control-label" for="quatroQueijos"
+                    >Quatro Queijos</label
+                  >
+                </div>
+              </div>
+
+              <div *ngIf="ordersForm.controls.halfNHalf.value === '1'">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="marguerita"
+                    name="marguerita"
+                    value="0"
+                    (change)="changeHalf(0)"
+                    formControlName="marguerita"
+                  />
+                  <label class="form-check-label" for="marguerita"
+                    >Marguerita
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="calabresa"
+                    name="calabresa"
+                    value="1"
+                    (change)="changeHalf(1)"
+                    formControlName="calabresa"
+                  />
+                  <label class="form-check-label" for="calabresa"
+                    >Calabresa</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="pepperoni"
+                    name="pepperoni"
+                    value="2"
+                    (change)="changeHalf(2)"
+                    formControlName="pepperoni"
+                  />
+                  <label class="form-check-label" for="pepperoni"
+                    >Pepperoni</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="frangoCatupiry"
+                    name="frangoCatupiry"
+                    value="3"
+                    (change)="changeHalf(3)"
+                    formControlName="frangoCatupiry"
+                  />
+                  <label class="form-check-label" for="frangoCatupiry"
+                    >Frango com Catupiry</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="portuguesa"
+                    name="portuguesa"
+                    value="4"
+                    (change)="changeHalf(4)"
+                    formControlName="portuguesa"
+                  />
+                  <label class="form-check-label" for="portuguesa"
+                    >Portuguesa</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="quatroQueijos"
+                    name="quatroQueijos"
+                    value="5"
+                    (change)="changeHalf(5)"
+                    formControlName="quatroQueijos"
+                  />
+                  <label class="form-check-label" for="quatroQueijos"
+                    >Quatro Queijos</label
+                  >
+                </div>
+              </div>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="
+                ordersForm.controls.halfNHalf.value === '0' &&
+                ordersForm.submitted &&
+                ordersForm.controls.mainFlavor.value === ''
+              "
+              style="margin-top: 4rem; margin-left: -45.5rem"
+            >
+              Por favor, informe um sabor.
+            </span>
+
+            <span
+              class="text-danger"
+              *ngIf="
+                ordersForm.controls.halfNHalf.value === '1' &&
+                ordersForm.submitted &&
+                halfFlavor.length !== 2
+              "
+              style="margin-top: 4rem; margin-left: -41.5rem"
+            >
+              Por favor, Informe dois sabores.
+            </span>
+          </div>
+          <div class="row" style="margin-bottom: 15px">
+            <div class="form-group col-12">
+              <label class="font-weight-bold" for="note">Observação</label>
+              <textarea
+                class="form-control"
+                id="note"
+                rows="3"
+                formControlName="note"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="text-right" style="margin-bottom: 25px">
+            <button type="submit" class="btn btn-info btn-sm">
+              Incluir Pizza
+            </button>
+          </div>
+        </form>
+
+        <table class="table" id="tableOrders" style="text-align: center">
+          <thead>
+            <tr>
+              <th>Tamanho</th>
+              <th>Tipo</th>
+              <th>Espessura</th>
+              <th>Molho extra</th>
+              <th>Sabor</th>
+              <th>Observação</th>
+              <th style="text-align: center">Remover Pizza</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of includedOrders; let i = index">
+              <td>{{ item.size }}</td>
+              <td>{{ item.halfNHalf }}</td>
+              <td>{{ item.crust }}</td>
+              <td>{{ item.extraSauce }}</td>
+              <td *ngIf="item.halfNHalf === 'Pizza Inteira'">
+                {{ item.mainFlavor }}
+              </td>
+              <td *ngIf="item.halfNHalf !== 'Pizza Inteira'">
+                {{ flavors[item.halfFlavor[0]] }} +
+                {{ flavors[item.halfFlavor[1]] }}
+              </td>
+              <td>{{ item.note }}</td>
+              <td style="text-align: center">
+                <a class="btn btn-sm btn-danger" (click)="removeItem(i)">
+                  Retirar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="text-right" style="margin-top: 3rem">
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm"
+            routerLink="/home"
+            style="margin-right: 5px"
+          >
+            Voltar
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="next()">
+            Próximo
+          </button>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

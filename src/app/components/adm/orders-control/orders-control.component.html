@@ -1,0 +1,901 @@
+<app-nav-bar-adm></app-nav-bar-adm>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <legend class="legendFormulario font-weight-bold">
+        Controle de Pedidos
+      </legend>
+    </div>
+  </div>
+</div>
+
+<nav style="margin-top: 2rem">
+  <div class="nav nav-pills nav-justified" id="nav-tab" role="tablist">
+    <a
+      class="nav-item nav-link active"
+      id="nav-aberto-tab"
+      data-toggle="tab"
+      href="#nav-aberto"
+      role="tab"
+      aria-controls="nav-aberto"
+      aria-selected="true"
+      (click)="getDataClient(aberto)"
+      >Aberto</a
+    >
+    <a
+      class="nav-item nav-link"
+      id="nav-contatar-cliente-tab"
+      data-toggle="tab"
+      href="#nav-contatar-cliente"
+      role="tab"
+      aria-controls="nav-contatar-cliente"
+      aria-selected="false"
+      (click)="getDataClient(contatarCliente)"
+      >Contatar Cliente</a
+    >
+    <a
+      class="nav-item nav-link"
+      id="nav-preparando-tab"
+      data-toggle="tab"
+      href="#nav-preparando"
+      role="tab"
+      aria-controls="nav-preparando"
+      aria-selected="false"
+      (click)="getDataClient(preparando)"
+      >Preparando</a
+    >
+    <a
+      class="nav-item nav-link"
+      id="nav-saiu-entrega-tab"
+      data-toggle="tab"
+      href="#nav-saiu-entrega"
+      role="tab"
+      aria-controls="nav-saiu-entrega"
+      aria-selected="false"
+      (click)="getDataClient(saiuEntrega)"
+      >Saiu para Entrega</a
+    >
+    <a
+      class="nav-item nav-link"
+      id="nav-entregue-tab"
+      data-toggle="tab"
+      href="#nav-entregue"
+      role="tab"
+      aria-controls="nav-entregue"
+      aria-selected="false"
+      (click)="getDataClient(entregue)"
+      >Entregue</a
+    >
+    <a
+      class="nav-item nav-link"
+      id="nav-cancelado-tab"
+      data-toggle="tab"
+      href="#nav-cancelado"
+      role="tab"
+      aria-controls="nav-cancelado"
+      aria-selected="false"
+      (click)="getDataClient(cancelado)"
+      >Cancelado</a
+    >
+    <a
+      class="nav-item nav-link"
+      id="nav-finalizado-tab"
+      data-toggle="tab"
+      href="#nav-finalizado"
+      role="tab"
+      aria-controls="nav-finalizado"
+      aria-selected="false"
+      (click)="getDataClient(finalizado)"
+      >Finalizado</a
+    >
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div
+    class="tab-pane fade show active"
+    id="nav-aberto"
+    role="tabpanel"
+    aria-labelledby="nav-aberto-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronAberto">
+      <div class="container">
+        <h1 class="display-4">Pedidos para contatar cliente</h1>
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="tab-pane fade"
+    id="nav-contatar-cliente"
+    role="tabpanel"
+    aria-labelledby="nav-contatar-cliente-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronContatarCliente">
+      <div class="container">
+        <h1 class="display-4">Pedidos a serem preparados</h1>
+
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="nav-preparando"
+    role="tabpanel"
+    aria-labelledby="nav-preparando-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronPreparando">
+      <div class="container">
+        <h1 class="display-4">Pedidos em Preparo</h1>
+
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="nav-saiu-entrega"
+    role="tabpanel"
+    aria-labelledby="nav-saiu-entrega-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronSaiuParaEntrega">
+      <div class="container">
+        <h1 class="display-4">Pedidos a caminho</h1>
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="tab-pane fade"
+    id="nav-entregue"
+    role="tabpanel"
+    aria-labelledby="nav-entregue-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronEntregue">
+      <div class="container">
+        <h1 class="display-4">Pedidos entregues</h1>
+
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="tab-pane fade"
+    id="nav-cancelado"
+    role="tabpanel"
+    aria-labelledby="nav-cancelado-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronCancelado">
+      <div class="container">
+        <h1 class="display-4">Pedidos cancelados</h1>
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="tab-pane fade"
+    id="nav-finalizado"
+    role="tabpanel"
+    aria-labelledby="nav-finalizado-tab"
+  >
+    <div class="jumbotron jumbotron-fluid jumbotronFinalizado">
+      <div class="container">
+        <h1 class="display-4">Pedidos finalizados</h1>
+        <p class="lead">Quantidade: {{ this.pedidos.length }}</p>
+
+        <div class="col-12" style="width: 1313px; margin: 0">
+          <div class="row">
+            <div class="col" *ngFor="let item of pedidos">
+              <div class="card border-primary mb-3" style="max-width: 18rem">
+                <div class="card-header">Pedido: {{ item.id }}</div>
+                <div
+                  class="form-check"
+                  style="
+                    margin-left: 12rem;
+                    margin-top: -2.1rem;
+                    margin-bottom: 2rem;
+                  "
+                >
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="selectedOrder"
+                  />
+                </div>
+                <h5 class="card-title">Título especial</h5>
+                <div class="card-body">
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Cliente:
+                    <label style="color: black; font-weight: 400">{{
+                      item.client.fullName
+                    }}</label>
+                  </label>
+
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      *ngFor="let item of item.pizzas"
+                      style="margin-left: -19px; margin-top: -10px"
+                    >
+                      <label
+                        class="card-title font-weight-bold"
+                        style="color: red; overflow: hidden"
+                      >
+                        Pizza:
+                        <label>
+                          {{
+                            item.halfNHalf === false ? "Inteira" : "Meio a Meio"
+                          }}
+                        </label>
+                      </label>
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.mainFlavor }}</label
+                      >
+                      <br />
+                      <label style="margin-left: 10px">
+                        {{ item.secondaryFlavor }} </label
+                      ><br />
+                    </li>
+                  </ul>
+
+                  <label class="card-title font-weight-bold" style="color: red">
+                    Local de Entrega:
+                    <label style="color: black; font-weight: 400"
+                      >{{
+                        item.deliveryAddress.streetAddress +
+                          ", " +
+                          item.deliveryAddress.number +
+                          " - " +
+                          item.deliveryAddress.neighborhood +
+                          " - " +
+                          item.deliveryAddress.city +
+                          " / " +
+                          item.deliveryAddress.state +
+                          " - " +
+                          item.deliveryAddress.zipCode
+                      }}
+                    </label>
+                  </label>
+
+                  <footer style="margin-top: 15px">
+                    <div>
+                      <div class="row" style="margin-left: 18px">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          style="margin-right: 5px"
+                        >
+                          Cancelar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
+                        >
+                          Continuar
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

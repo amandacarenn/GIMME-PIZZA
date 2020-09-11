@@ -1,0 +1,106 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+  <div class="card border-success mb-3">
+    <div class="card-header">
+      Verifique seu Pedido {{ this.client.fullName }}
+    </div>
+    <div class="card-body text-success">
+      <div *ngFor="let item of pizzas">
+        <h5 class="card-title">
+          Pizza "{{ item.halfNHalf }}" de
+          {{
+            item.halfNHalf === "Pizza Inteira"
+              ? item.mainFlavor
+              : flavors[item.halfFlavor[0]] +
+                " e " +
+                flavors[item.halfFlavor[1]]
+          }}
+        </h5>
+        <p class="card-text font-weight-bold">
+          Tamanho:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ item.size }}
+          </label>
+        </p>
+        <p class="card-text font-weight-bold">
+          Espessura:
+          <label class="font-weight-bold" style="color: #eb5353">{{
+            item.crust
+          }}</label>
+        </p>
+        <p class="card-text font-weight-bold" *ngIf="item.extraSauce === 'Sim'">
+          Molho Extra:
+          <label class="font-weight-bold" style="color: #eb5353">{{
+            item.extraSauce
+          }}</label>
+        </p>
+        <p class="card-text font-weight-bold" *ngIf="item.note !== ''">
+          Observação:
+          <label class="font-weight-bold" style="color: #eb5353">
+            {{ item.note !== "" ? item.note : "" }}
+          </label>
+        </p>
+      </div>
+
+      <div style="margin-top: 3rem">
+        <h5 class="card-title">Local de Entrega</h5>
+        <p class="card-text font-weight-bold">
+          Endereço:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ this.deliveryAddress[0].deliveryAddress.streetAddress }},
+          </label>
+          Número:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ this.deliveryAddress[0].deliveryAddress.number }},
+          </label>
+          <label
+            *ngIf="this.deliveryAddress[0].deliveryAddress.complement !== ''"
+          >
+            Complemento:
+          </label>
+          <label
+            class="font-weight-bold"
+            style="color: #eb5353"
+            *ngIf="this.deliveryAddress[0].deliveryAddress.complement !== ''"
+            >{{ this.deliveryAddress[0].deliveryAddress.complement }},
+          </label>
+          Bairro:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ this.deliveryAddress[0].deliveryAddress.neighborhood }},
+          </label>
+          Cidade:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ this.deliveryAddress[0].deliveryAddress.city }} /
+          </label>
+          Estado:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ this.deliveryAddress[0].deliveryAddress.state }} -
+          </label>
+          CEP:
+          <label class="font-weight-bold" style="color: #eb5353"
+            >{{ this.deliveryAddress[0].deliveryAddress.zipCode }}
+          </label>
+        </p>
+      </div>
+    </div>
+
+    <div class="text-right" style="margin: 15px">
+      <button
+        type="button"
+        class="btn btn-danger btn-sm"
+        routerLink="/home"
+        style="margin-right: 5px"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary btn-sm"
+        (click)="submitOrder()"
+      >
+        Confirmar Pedido
+      </button>
+    </div>
+  </div>
+</div>

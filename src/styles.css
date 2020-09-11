@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+legend {
+  font-size: 20px !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #28a745 !important;
+  border-color: #8afea4 !important;
+}
+
+.error {
+  color: red;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.ngx-material-timepicker-toggle {
+  display: inline !important;
+}
+
+h5,
+.h5 {
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+}
+
+.jumbotron {
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
+  text-align: center;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  margin-right: 5px;
+}

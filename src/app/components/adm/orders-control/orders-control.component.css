@@ -1,0 +1,51 @@
+.jumbotronAberto {
+  background-color: #e9ecef;
+}
+
+.jumbotronContatarCliente {
+  background-color: #f4e262;
+}
+.jumbotronPreparando {
+  background-color: #ff9a33;
+}
+.jumbotronSaiuParaEntrega {
+  background-color: #17b967;
+}
+.jumbotronEntregue {
+  background-color: #499bf4;
+}
+.jumbotronCancelado {
+  background-color: #b9253f;
+}
+.jumbotronFinalizado {
+  background-color: #f02a4d;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: black;
+}
+a {
+  color: black;
+}
+
+.row .col {
+  float: left;
+  box-sizing: border-box;
+  padding: 0 0.75rem;
+  min-height: 1px;
+}
+
+.card {
+  height: 415px;
+  width: 240px;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  text-align: start;
+  overflow-y: auto;
+}

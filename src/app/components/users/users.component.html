@@ -1,0 +1,308 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <fieldset class="border p-3 my-3">
+        <legend class="legendFormulario font-weight-bold">
+          {{ newUser ? "Cadastro Cliente" : "Dados Cliente" }}
+        </legend>
+
+        <form
+          class="col s6"
+          [formGroup]="usersForm"
+          novalidate
+          (ngSubmit)="onSubmit(usersForm)"
+        >
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="identityId">CPF</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted ||
+                    usersForm.controls.identityId.touched) &&
+                  usersForm.controls.identityId.value === ''
+                "
+                id="identityId"
+                formControlName="identityId"
+                [textMask]="{ mask: cpfMask }"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted ||
+                    usersForm.controls.identityId.touched) &&
+                  usersForm.controls.identityId.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-7">
+              <label class="font-weight-bold" for="fullName"
+                >Nome Completo</label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted ||
+                    usersForm.controls.fullName.touched) &&
+                  usersForm.controls.fullName.value === ''
+                "
+                id="fullName"
+                formControlName="fullName"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted ||
+                    usersForm.controls.fullName.touched) &&
+                  usersForm.controls.fullName.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-1">
+              <button
+                type="button"
+                class="btn btn-info btn-sm"
+                (click)="userVerify()"
+                style="margin-top: 1.7rem"
+              >
+                Buscar
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-8">
+              <label class="font-weight-bold" for="email">Email</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted || usersForm.controls.email.touched) &&
+                  usersForm.controls.email.value === ''
+                "
+                id="email"
+                formControlName="email"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted || usersForm.controls.email.touched) &&
+                  usersForm.controls.email.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="phone">Telefone</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted || usersForm.controls.phone.touched) &&
+                  usersForm.controls.phone.value === ''
+                "
+                id="phone"
+                formControlName="phone"
+                [textMask]="{ mask: phoneMask }"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted || usersForm.controls.phone.touched) &&
+                  usersForm.controls.phone.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label class="font-weight-bold" for="zipCode">CEP</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted || usersForm.controls.zipCode.touched) &&
+                  usersForm.controls.zipCode.value === ''
+                "
+                id="zipCode"
+                formControlName="zipCode"
+                [textMask]="{ mask: cepMask }"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted || usersForm.controls.zipCode.touched) &&
+                  usersForm.controls.zipCode.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="font-weight-bold" for="streetAddress"
+                >Endereço</label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted ||
+                    usersForm.controls.streetAddress.touched) &&
+                  usersForm.controls.streetAddress.value === ''
+                "
+                id="streetAddress"
+                formControlName="streetAddress"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted ||
+                    usersForm.controls.streetAddress.touched) &&
+                  usersForm.controls.streetAddress.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label class="font-weight-bold" for="number">Número</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (usersForm.submitted || usersForm.controls.number.touched) &&
+                  usersForm.controls.number.value === ''
+                "
+                id="number"
+                formControlName="number"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted || usersForm.controls.number.touched) &&
+                  usersForm.controls.number.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label class="font-weight-bold" for="complement"
+                >Complemento</label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="complement"
+                formControlName="complement"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="neighborhood">Bairro</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  (usersForm.submitted ||
+                    usersForm.controls.neighborhood.touched) &&
+                  usersForm.controls.neighborhood.value === ''
+                "
+                id="neighborhood"
+                formControlName="neighborhood"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted ||
+                    usersForm.controls.neighborhood.touched) &&
+                  usersForm.controls.neighborhood.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="city">Cidade</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  (usersForm.submitted || usersForm.controls.city.touched) &&
+                  usersForm.controls.city.value === ''
+                "
+                id="city"
+                formControlName="city"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted || usersForm.controls.city.touched) &&
+                  usersForm.controls.city.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="state">Estado</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  (usersForm.submitted || usersForm.controls.state.touched) &&
+                  usersForm.controls.state.value === ''
+                "
+                id="state"
+                formControlName="state"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (usersForm.submitted || usersForm.controls.state.touched) &&
+                  usersForm.controls.state.value === ''
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+          </div>
+          <div class="text-right">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              (click)="back()"
+              style="margin-right: 5px"
+            >
+              Voltar
+            </button>
+            <button type="submit" class="btn btn-primary btn-sm">
+              {{ newUser ? "Salvar" : "Próximo" }}
+            </button>
+          </div>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+</div>

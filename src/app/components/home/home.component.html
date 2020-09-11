@@ -1,0 +1,15 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="jumbotron">
+  <h1 class="display-4">Bem vindo a Pizzaria Gimme Pizza!</h1>
+  <p class="lead">Aqui você faz seu pedido online e levamos até você.</p>
+  <button
+    type="button"
+    class="btn btn-primary btn-lg"
+    routerLink="/orders"
+    (click)="postToken()"
+  >
+    <i class="fas fa-sign-in-alt"> </i>
+    Fazer Pedido
+  </button>
+</div>

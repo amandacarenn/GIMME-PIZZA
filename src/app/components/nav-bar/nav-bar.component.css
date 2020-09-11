@@ -1,0 +1,28 @@
+li {
+  margin-right: 10px;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  margin-bottom: 25px;
+}
+
+a {
+  color: #28a745 !important;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover,
+:active {
+  color: white !important;
+}
+.container-fluid {
+  padding: 0 pxToRem(15);
+  margin-top: pxToRem(70);
+}

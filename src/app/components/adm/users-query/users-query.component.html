@@ -1,0 +1,40 @@
+<app-nav-bar-adm></app-nav-bar-adm>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <fieldset class="border p-3 my-3">
+        <legend class="legendFormulario font-weight-bold">
+          Clientes Cadastrados
+        </legend>
+
+        <table class="table" id="tableOrders" style="text-align: center">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Telefone</th>
+              <th>E-mail</th>
+              <th>Cidade</th>
+              <th style="text-align: center">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of users; let i = index">
+              <td>{{ item.fullName }}</td>
+              <td>{{ item.identityId }}</td>
+              <td>{{ item.clientContacts.phone }}</td>
+              <td>{{ item.clientContacts.email }}</td>
+              <td>{{ item.fullName }}</td>
+              <td style="text-align: center">
+                <a class="btn btn-sm btn-info" (click)="viewUser(item.id)">
+                  Visualizar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+</div>

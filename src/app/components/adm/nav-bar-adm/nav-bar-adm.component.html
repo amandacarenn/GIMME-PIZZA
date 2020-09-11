@@ -1,0 +1,31 @@
+<nav class="navbar navbar-inverse bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <span
+        class="navbar-brand display-4 font-weight-bold"
+        style="color: #28a745"
+        >Gimme Pizza
+      </span>
+    </div>
+
+    <ul class="nav navbar-right">
+      <li style="margin-top: 5px">
+        <a routerLink="/users-query"> Usuários </a>
+      </li>
+      <li style="margin-top: 5px; margin-right: 2rem">
+        <a routerLink="/orders-control"> Controle de Pedidos </a>
+      </li>
+      <li style="margin-top: 5px; margin-right: 2rem">
+        <a (click)="exit()"> Sair </a>
+      </li>
+
+      <img
+        src="../../../assets/images/pizza.png"
+        width="30"
+        height="30"
+        alt=""
+        loading="lazy"
+      />
+    </ul>
+  </div>
+</nav>

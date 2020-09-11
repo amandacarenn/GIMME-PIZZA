@@ -1,0 +1,339 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <fieldset class="border p-3 my-3">
+        <legend class="legendFormulario font-weight-bold">
+          Dados para Entrega
+        </legend>
+
+        <form
+          class="col s6"
+          [formGroup]="deliveryForm"
+          novalidate
+          (ngSubmit)="onSubmit(deliveryForm)"
+        >
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="font-weight-bold">
+                  Deseja programar o pedido?
+                </label>
+                <br />
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="yes"
+                    name="scheduled"
+                    class="custom-control-input"
+                    value="0"
+                    formControlName="scheduled"
+                  />
+                  <label class="custom-control-label" for="yes">Sim </label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="not"
+                    name="scheduled"
+                    class="custom-control-input"
+                    value="1"
+                    formControlName="scheduled"
+                  />
+                  <label class="custom-control-label" for="not">Não</label>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="custom-control-inline"
+              *ngIf="deliveryForm.controls.scheduled.value === '0'"
+            >
+              <mat-form-field
+                class="example-full-width"
+                style="margin-top: 5px"
+              >
+                <mat-label class="font-weight-bold">Selecione a data</mat-label>
+                <input
+                  matInput
+                  [matDatepickerFilter]="myFilter"
+                  [matDatepicker]="picker"
+                  [min]="minDate"
+                  formControlName="scheduledDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div
+              class="custom-control-inline"
+              *ngIf="deliveryForm.controls.scheduled.value === '0'"
+            >
+              <div class="form-group">
+                <input
+                  formControlName="scheduledTime"
+                  placeholder="Selecione a hora"
+                  [ngxTimepicker]="timePicker"
+                  [min]="'18:00 pm'"
+                  [max]="'23:59 pm'"
+                  readonly
+                  style="
+                    padding-top: 18px;
+                    padding-bottom: 5px;
+                    font-size: 12px;
+                    color: black;
+                    background-color: whitesmoke;
+                    border: transparent;
+                  "
+                />
+                <ngx-material-timepicker-toggle
+                  [for]="timePicker"
+                ></ngx-material-timepicker-toggle>
+                <ngx-material-timepicker #timePicker></ngx-material-timepicker>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="font-weight-bold">
+                  Deseja receber no mesmo endereço cadastrado?
+                </label>
+                <br />
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="yesAddress"
+                    name="address"
+                    class="custom-control-input"
+                    value="0"
+                    formControlName="address"
+                    (change)="getAddress()"
+                  />
+                  <label class="custom-control-label" for="yesAddress"
+                    >Sim
+                  </label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="notAddress"
+                    name="address"
+                    class="custom-control-input"
+                    value="1"
+                    formControlName="address"
+                    (change)="newAddress()"
+                  />
+                  <label class="custom-control-label" for="notAddress"
+                    >Não</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label class="font-weight-bold" for="zipCode">CEP</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.zipCode.touched) &&
+                  (deliveryForm.controls.zipCode.value === '' ||
+                    deliveryForm.controls.zipCode.value === null)
+                "
+                id="zipCode"
+                formControlName="zipCode"
+                [textMask]="{ mask: cepMask }"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.zipCode.touched) &&
+                  (deliveryForm.controls.zipCode.value === '' ||
+                    deliveryForm.controls.zipCode.value === null)
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="font-weight-bold" for="streetAddress"
+                >Endereço</label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.streetAddress.touched) &&
+                  (deliveryForm.controls.streetAddress.value === '' ||
+                    deliveryForm.controls.streetAddress.value === null)
+                "
+                id="streetAddress"
+                formControlName="streetAddress"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.streetAddress.touched) &&
+                  (deliveryForm.controls.streetAddress.value === '' ||
+                    deliveryForm.controls.streetAddress.value === null)
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label class="font-weight-bold" for="number">Número</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                [class.is-invalid]="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.number.touched) &&
+                  (deliveryForm.controls.number.value === '' ||
+                    deliveryForm.controls.number.value === null)
+                "
+                id="number"
+                formControlName="number"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.number.touched) &&
+                  (deliveryForm.controls.number.value === '' ||
+                    deliveryForm.controls.number.value === null)
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label class="font-weight-bold" for="complement"
+                >Complemento</label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="complement"
+                formControlName="complement"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="neighborhood">Bairro</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.neighborhood.touched) &&
+                  (deliveryForm.controls.neighborhood.value === '' ||
+                    deliveryForm.controls.neighborhood.value === null)
+                "
+                id="neighborhood"
+                formControlName="neighborhood"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.neighborhood.touched) &&
+                  (deliveryForm.controls.neighborhood.value === '' ||
+                    deliveryForm.controls.neighborhood.value === null)
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="city">Cidade</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.city.touched) &&
+                  (deliveryForm.controls.city.value === '' ||
+                    deliveryForm.controls.city.value === null)
+                "
+                id="city"
+                formControlName="city"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.city.touched) &&
+                  (deliveryForm.controls.city.value === '' ||
+                    deliveryForm.controls.city.value === null)
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label class="font-weight-bold" for="state">Estado</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.state.touched) &&
+                  (deliveryForm.controls.state.value === '' ||
+                    deliveryForm.controls.state.value === null)
+                "
+                id="state"
+                formControlName="state"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  (deliveryForm.submitted ||
+                    deliveryForm.controls.state.touched) &&
+                  (deliveryForm.controls.state.value === '' ||
+                    deliveryForm.controls.state.value === null)
+                "
+              >
+                Campo obrigatório
+              </span>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              routerLink="/users"
+              style="margin-right: 5px"
+            >
+              Voltar
+            </button>
+            <button type="submit" class="btn btn-primary btn-sm">
+              Próximo
+            </button>
+          </div>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+</div>
