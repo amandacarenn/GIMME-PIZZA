@@ -31,4 +31,10 @@ export class PizzaOrdersService {
       },
     });
   }
+
+  putStatus(pizzaOrderId: any) {
+    return this.http.put<any>(`${this.BASEURL}/pizza-orders/${pizzaOrderId}`, {
+      headers: this.httpHeaders,
+    });
+  }
 }

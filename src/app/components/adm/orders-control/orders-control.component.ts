@@ -1,3 +1,4 @@
+import { element } from "protractor";
 import { PizzaOrdersService } from "./../../../services/pizza-orders.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -35,4 +36,6 @@ export class OrdersControlComponent implements OnInit {
       }
     });
   }
+
+  cancelOrder(item) {}
 }
